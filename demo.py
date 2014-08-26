@@ -20,12 +20,12 @@ class MyCanvas(Canvas):
         for p1, p2 in zip(points, points[1:]):
             self.create_line(p1, p2, kwargs)
 
-    def create_bezier(self, b):
-        self.create_polyline([bezier.q(b, t/100.0).tolist() for t in xrange(0, 101)], tag='bezier', fill='blue', width='2') # there a better ways to draw a bezier
-        self.create_line(b[0].tolist(), b[1].tolist(), tags='bezier')
-        self.createPoint(b[1][0], b[1][1], 2, fill='black', tags='bezier')
-        self.create_line(b[3].tolist(), b[2].tolist(), tags='bezier')
-        self.createPoint(b[2][0], b[2][1], 2, fill='black', tags='bezier')
+    def create_bezier(self, b, tag):
+        self.create_polyline([bezier.q(b, t/100.0).tolist() for t in xrange(0, 101)], tag=tag, fill='blue', width='2') # there are better ways to draw a bezier
+        self.create_line(b[0].tolist(), b[1].tolist(), tag=tag)
+        self.createPoint(b[1][0], b[1][1], 2, fill='black', tag=tag)
+        self.create_line(b[3].tolist(), b[2].tolist(), tag=tag)
+        self.createPoint(b[2][0], b[2][1], 2, fill='black', tag=tag)
 
     def createPoint(self, x, y, r, **kwargs):
         return self.create_oval(x-r, y-r, x+r, y+r, kwargs)
@@ -105,7 +105,7 @@ class MainObject:
         points = array([self.canvas.pos(p) for p in self.points])
         beziers = fitCurve(points, float(self.spinbox.get())**2)
         for bezier in beziers:
-            self.canvas.create_bezier(bezier)
+            self.canvas.create_bezier(bezier, tag='bezier')
 
 
 if __name__ == '__main__':
