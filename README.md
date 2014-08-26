@@ -11,5 +11,5 @@ The python implementation uses NumPy
 
 demo.py is a example gui application using Tkinter.
 
-!demo](https://github.com/volkerp/fitCurves/raw/master/demo_screenshot.png "demo.py")
+![demo](https://github.com/volkerp/fitCurves/raw/master/demo_screenshot.png "demo.py")
 
