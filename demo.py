@@ -20,18 +20,22 @@ class MyCanvas(Canvas):
         for p1, p2 in zip(points, points[1:]):
             self.create_line(p1, p2, kwargs)
 
-    def create_bezier(self, b, tag):
-        self.create_polyline([bezier.q(b, t/100.0).tolist() for t in xrange(0, 101)], tag=tag, fill='blue', width='2') # there are better ways to draw a bezier
-        self.create_line(b[0].tolist(), b[1].tolist(), tag=tag)
-        self.createPoint(b[1][0], b[1][1], 2, fill='black', tag=tag)
-        self.create_line(b[3].tolist(), b[2].tolist(), tag=tag)
-        self.createPoint(b[2][0], b[2][1], 2, fill='black', tag=tag)
 
-    def createPoint(self, x, y, r, **kwargs):
+    def create_bezier(self, b, tag):
+        self.create_polyline([bezier.q(b, t/50.0).tolist() for t in xrange(0, 51)], tag=tag, fill='blue', width='2') # there are better ways to draw a bezier
+        self.create_line(b[0].tolist(), b[1].tolist(), tag=tag)
+        self.create_point(b[1][0], b[1][1], 2, fill='black', tag=tag)
+        self.create_line(b[3].tolist(), b[2].tolist(), tag=tag)
+        self.create_point(b[2][0], b[2][1], 2, fill='black', tag=tag)
+
+
+    def create_point(self, x, y, r, **kwargs):
         return self.create_oval(x-r, y-r, x+r, y+r, kwargs)
+
 
     def pos(self, idOrTag):
         return cntr(*self.coords(idOrTag))
+
 
     def itemsAtPos(self, x, y, tag):
         return [item for item in self.find_overlapping(x, y, x, y) if tag in self.gettags(item)]
@@ -68,7 +72,7 @@ class MainObject:
         if items:
             self.draggingPoint = items[0]
         else:
-            self.points.append(self.canvas.createPoint(event.x, event.y, 4, fill='red', tag='point'))
+            self.points.append(self.canvas.create_point(event.x, event.y, 4, fill='red', tag='point'))
             self.redraw()
 
 
